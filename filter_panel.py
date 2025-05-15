@@ -1,8 +1,8 @@
 import streamlit as st
 from data_wrangling import get_unique_values
 
-filter_dims = ["age_group", "gender", "category", "segment",
-"product_name", "state"]
+filter_dims = ["Age group", "Gender", "Category", "Segment",
+"Product name", "State"]
 
 def filter_panel(df):
     """takes a dataframe as input and renders the dropdowns
