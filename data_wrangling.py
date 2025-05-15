@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from data_load import load_data
 
 
@@ -11,8 +12,11 @@ def clean_column_names(df):
     return df
 
 @st.cache_data(show_spinner="Reading sales data...", ttl="1d")
-def prepare_data():
-    return clean_column_names(load_data())
+def prepare_data() -> pd.DataFrame:
+    df = clean_column_names(load_data())
+    df['Day'] = pd.to_datetime(df['Date'])
+    return df
+
 
 def apply_filters(df, filters):
     """take df and filters dictionary returned by filter_panel"""
@@ -21,4 +25,15 @@ def apply_filters(df, filters):
             df = df[df[col].isin(values)]
     return df
 
+
+def get_data_within_date_range(df, start, end):
+    if start is not None and end is not None:
+        dt_start, dt_end = pd.to_datetime(start), pd.to_datetime(end)
+        return df[(df['Day'] >= dt_start) & (df['Day'] <= dt_end)]
+    return df
+
+
+def get_filtered_data_within_date_range(df, start, end, filters):
+    df_within_range = get_data_within_date_range(df.copy(), start, end)
+    return apply_filters(df_within_range, filters)
 
