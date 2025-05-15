@@ -14,4 +14,11 @@ def clean_column_names(df):
 def prepare_data():
     return clean_column_names(load_data())
 
+def apply_filters(df, filters):
+    """take df and filters dictionary returned by filter_panel"""
+    for col, values in filters.items():
+        if values:
+            df = df[df[col].isin(values)]
+    return df
+
 

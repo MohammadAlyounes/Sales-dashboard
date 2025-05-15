@@ -7,10 +7,13 @@ filter_dims = ["Age group", "Gender", "Category", "Segment",
 def filter_panel(df):
     """takes a dataframe as input and renders the dropdowns
      using the unique values for each field."""
+    filters = {}
     with st.expander("Filters"):
         filter_cols = st.columns(len(filter_dims))
         for idx, dim in enumerate(filter_dims):
             with filter_cols[idx]:
                 unique_values = get_unique_values(df, dim)
-                st.multiselect(dim, unique_values)
+                filters[dim] = st.multiselect(dim, unique_values)
+    return filters
+
 

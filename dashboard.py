@@ -1,10 +1,12 @@
 import streamlit as st
-from data_wrangling import prepare_data
+from data_wrangling import prepare_data, apply_filters
 from filter_panel import filter_panel
 
 st.set_page_config(layout='wide')
+st.title("By Mohammad Alyounes")
+
 
 data = prepare_data()
-filter_panel(data)
-st.write(data)
-
+filters = filter_panel(data)
+main_df = apply_filters(data, filters)
+st.write(main_df.head())
