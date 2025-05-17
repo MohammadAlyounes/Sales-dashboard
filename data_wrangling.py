@@ -44,3 +44,10 @@ def get_metric_time_series(df, metric):
   data.columns = ['Day', 'Value']
   return data
 
+
+def get_metric_grouped_by_dimension(df, metric, dimension):
+    grouped = df.groupby(dimension)
+    data = grouped.apply(metric.func, include_groups=False).reset_index()
+    data.columns = [dimension, 'Value']
+    return data
+
