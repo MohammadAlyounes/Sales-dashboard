@@ -23,7 +23,10 @@ main_df = get_filtered_data_within_date_range(data, start, end, filters)
 if main_df.empty:
     st.warning("No data to display")
 else:
-    metric_bar(main_df)
+    compare_df = get_filtered_data_within_date_range(
+        data, compare_start, compare_end, filters)
+    metric_bar(main_df, compare_df)
+
     time_series_col, pie_chart_col = st.columns(2)
     with time_series_col:
         time_series_chart(main_df)
