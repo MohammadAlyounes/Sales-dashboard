@@ -7,10 +7,10 @@ def get_metric(df, metric):
 
 def metric_bar(main_df):
     with st.container(border=True):
-        metrics_cols = st.columns(len(display_metrics))
+        metric_cols = st.columns(len(display_metrics))
         for idx, metric_name in enumerate(display_metrics):
             metric = metrics[metric_name]
-            with metrics_cols[idx]:
+            with metric_cols[idx]:
                 value = get_metric(main_df, metric)
                 formatted_value = format_metric(value, metric.type)
                 c1, c2, c3 = st.columns([1, 3, 1])

@@ -37,3 +37,10 @@ def get_filtered_data_within_date_range(df, start, end, filters):
     df_within_range = get_data_within_date_range(df.copy(), start, end)
     return apply_filters(df_within_range, filters)
 
+
+def get_metric_time_series(df, metric):
+  grouped = df.groupby('Day')
+  data = grouped.apply(metric.func, include_groups=False).reset_index()
+  data.columns = ['Day', 'Value']
+  return data
+
