@@ -12,7 +12,8 @@ st.title("By Mohammad Alyounes")
 
 
 with st.sidebar:
-    start, end = date_range_panel()
+    start, end, compare_start, compare_end = date_range_panel()
+
 
 data = prepare_data()
 filters = filter_panel(data)
