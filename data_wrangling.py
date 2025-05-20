@@ -52,4 +52,3 @@ def get_metric_grouped_by_dimension(df, metric, dimension):
     data = grouped.apply(metric.func, include_groups=False).reset_index()
     data.columns = [dimension, 'Value']
     return data
-
