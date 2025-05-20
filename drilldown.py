@@ -35,13 +35,30 @@ def get_aggregate_metrics(df, dimensions):
     metric_cols = get_metric_cols(df)
     return pd.DataFrame(metric_cols).T
 
-def get_drilldown_table(df, dimensions):
-    aggregated = get_aggregate_metrics(df, dimensions)
-    return aggregated
 
 def display_drilldown_table(df):
     if df is None:
         st.warning("No data available for selected filters and date range")
     else:
         st.dataframe(df, use_container_width=True, hide_index=True)
+
+def add_total_row(df, all_df, dimensions):
+    """Add a summary row to the drilldown table,
+    df: the aggregated dataframe grouped by dimensions,
+    all_df: the original dataframe before aggregation"""
+
+    total_metrics = get_metric_cols(all_df)
+    if dimensions:
+        dim_vals = {dim: '' for dim in dimensions}
+        dim_vals[dimensions[0]] = 'Total' # creates the text display values for our total row
+        total_row = pd.DataFrame({**dim_vals, **total_metrics}, index=[0])
+        return pd.concat([total_row, df], ignore_index=True)
+    total_row = pd.DataFrame({'': 'Total', **total_metrics}, index=[0])
+    return total_row
+
+
+def get_drilldown_table(df, dimensions):
+    aggregated = get_aggregate_metrics(df, dimensions)
+    with_total = add_total_row(aggregated, df, dimensions)
+    return with_total
 
