@@ -1,5 +1,6 @@
 📊 Overview
-[Screenshots in my LinkedIn Profile]
+
+
 
 An interactive sales analytics dashboard for executives.
 
