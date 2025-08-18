@@ -1,6 +1,6 @@
 📊 Overview
 
-
+https://github.com/MohammadAlyounes/Sales-dashboard/blob/master/Dashboard.png?raw=true
 
 An interactive sales analytics dashboard for executives.
 
